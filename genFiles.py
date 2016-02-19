@@ -13,6 +13,7 @@ sourceFile.close()
 i = 0
 # Process
 for line in sourceLines:
+    ''' Ignore first line'''
     if i > 0:
         line = line.rstrip('\n')
         values = line.split()
@@ -20,13 +21,14 @@ for line in sourceLines:
         second.append(str(values[0]) + " " + str(values[2]) + "\n")
         third.append(str(values[0]) + " " + str(values[3]) + "\n")
         output.append(str(values[0]) + " " + str(values[4]) + "\n")
-
     i += 1
-
+'''Reset i to account for 1st line'''
 i -= 1
+'''remove last end line'''
 first[i - 1] = first[i - 1].rstrip('\n')
 second[i - 1] = second[i - 1].rstrip('\n')
 third[i - 1] = third[i - 1].rstrip('\n')
+output[i - 1] = output[i - 1].rstrip('\n')
 
 # Write 1
 fh = open("gen/first.csv", "w")
