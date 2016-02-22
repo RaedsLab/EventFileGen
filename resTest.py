@@ -44,7 +44,7 @@ for expectedLine in expectedLines:
             if realValue['value'] == expectedValue['value']:
                 ''' found match '''
                 counter += 1
-                print "[Test] Sucess: Time[" + realValue['time'] + "] Value[" + realValue['value'] + "]"
+                print "[Test] Success: Time[" + realValue['time'] + "] Value[" + realValue['value'] + "]"
                 realVals.remove(realValue)
                 ''' So no double success error '''
             else:
