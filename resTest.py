@@ -54,4 +54,4 @@ for expectedLine in expectedLines:
                       expectedValue['value'] + "]"
 
 print "------------"
-print "Sucess rate for " + str(i) + " elements : " + str(float(100 * counter / i)) + "%"
+print "Success rate for " + str(i) + " elements : " + str(float(100 * counter / i)) + "%"
