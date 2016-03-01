@@ -1,7 +1,11 @@
 #!/usr/bin/python2.7
 
+import sys
 
-sourceFile = open("simres.dat0", "r")
+simulationFile = sys.argv[1]
+expectedFile = sys.argv[2]
+
+sourceFile = open(simulationFile, "r")
 sourceLines = sourceFile.readlines()
 sourceFile.close()
 
@@ -19,18 +23,15 @@ for source in sourceLines:
 
 destLines[i - 1] = destLines[i - 1].rstrip('\n')
 
-fh = open("realRes.csv", "w")
+fh = open("devsOutput.csv", "w")
 fh.writelines(destLines)
 fh.close()
 
-genFile = open("gen/output.csv", "r")
-genLines = genFile.readlines()
-genFile.close()
-
-expectedFile = open("gen/output.csv", "r")
+expectedFile = open(expectedFile, "r")
 expectedLines = expectedFile.readlines()
 expectedFile.close()
 
+'''
 i = 0
 counter = 0
 for expectedLine in expectedLines:
@@ -42,16 +43,40 @@ for expectedLine in expectedLines:
     for realValue in realVals:
         if realValue['time'] == expectedValue['time']:
             if realValue['value'] == expectedValue['value']:
-                ''' found match '''
+                # found match
                 counter += 1
                 print "[Test] Success: Time[" + realValue['time'] + "] Value[" + realValue['value'] + "]"
                 realVals.remove(realValue)
-                ''' So no double success error '''
+                # So no double success error
             else:
-                '''time is right but not value error'''
+                #time is right but not value error
                 print "[Test] Error: Time[" + realValue['time'] + "] | realValue[" + realValue[
                     'value'] + "] - expectedValue[" + \
                       expectedValue['value'] + "]"
+
+print "------------"
+print "Success rate for " + str(i) + " elements : " + str(float(100 * counter / i)) + "%"
+'''
+
+i = 0
+counter = 0
+for expectedLine in expectedLines:
+    expectedLine = expectedLines[i].rstrip('\n')
+    expectedVal = expectedLine.split()
+    expectedValue = {"value": str(expectedVal[1]), "time": str(expectedVal[0])}
+    print "------------ "
+    realValue = realVals[i]
+    if realValue['value'] == expectedValue['value']:
+        # found match
+        counter += 1
+        print i, "[Test] Success: Time[" + realValue['time'] + "] Value[" + realValue['value'] + "]"
+        # So no double success error
+    else:
+        # time is right but not value error
+        print i, "[Test] Error: Time[" + realValue['time'] + "] | realValue[" + realValue[
+            'value'] + "] - expectedValue[" + \
+                 expectedValue['value'] + "]"
+    i += 1
 
 print "------------"
 print "Success rate for " + str(i) + " elements : " + str(float(100 * counter / i)) + "%"
