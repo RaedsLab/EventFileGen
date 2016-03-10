@@ -6,11 +6,11 @@ values = []
 out = []
 
 index = 0
-while index < 100:
-    r = random.randint(1, 10)
+while index < 10:
+    r = random.uniform(0, 1)
     index += r
-    value = random.randint(0, 1)
-    values.append({"time": str(index), "value": str(value)})
+    index = round(index, 1)
+    values.append({"time": str(index), "value": "0"})
 
 i = 0
 for v in values:
@@ -21,6 +21,6 @@ for v in values:
 out[i - 1] = out[i - 1].rstrip('\n')
 
 # Write Output
-fh = open("gen.csv", "w")
+fh = open("mouseGen.csv", "w")
 fh.writelines(out)
 fh.close()
